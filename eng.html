@@ -1,0 +1,1531 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+
+    <title>Auto-scroll with Keyboard</title>
+    <style>
+        /* CSS styles for the sections */
+		body {
+  outline: none;
+    margin: 0;
+  padding: 0;
+   background: violet;
+
+}
+
+/* Masquer les barres de défilement */
+body::-webkit-scrollbar {
+  display: none;
+}
+
+        section {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 2em;
+        }
+        
+        #section1 {
+             background-color: violet;
+
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+        #section2 {
+             background-color: violet;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        } 
+        #section3 {
+             background-color: violet;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+        #section4 {
+             background-color: violet;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        } 	
+        #section5 {
+             background-color: violet;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        } 	
+        #section6 {
+             background-color: violet;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        } 	
+        #section7 {
+             background-color: violet;		
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        } 
+
+        /* CSS styles for the buttons */
+        #scrollButtons {
+            position: fixed;
+            top: 20%;
+            right: 35%;
+			font-size: 120%; 
+			display: none;
+            flex-direction: row;
+            align-items: flex-end;
+            z-index: 999;
+    opacity: 0;
+    transition: opacity 1s;
+        }
+        
+    
+        
+        /* CSS styles for the images */
+        #imageContainer {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+        
+        #imageContainer img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: auto;
+            object-fit: cover;
+            transition: transform 1s ease;
+        }
+        
+        #imageContainer img:last-child {
+            width: 100%;
+            height: 100%;
+        }
+        
+        #imageContainer img:nth-child(2) {
+            transform: translateX(100%);
+        }
+        
+        #imageContainer .top-h1 {
+            position: absolute;
+            bottom: 30%;
+            left: 10%;
+            
+            z-index: 9999;
+            text-align: left;
+            color: pink;
+            font-family: "Aliens & Cows Heavy", sans-serif;
+			zoom: 1; /* Prevent zooming affecting text size */
+
+        }
+        
+        #imageContainer .top-h1 span {
+            display: block;
+            line-height: 1;
+        }
+        
+        @font-face {
+            font-family: "Aliens & Cows Heavy";
+            src: url("Anton-Regular.ttf"); /* Replace with the actual path to the font file */
+        }
+			@keyframes moveUpDown {
+  0% {
+    transform: translateY(0);
+	
+  }
+  50% {
+    transform: translateY(-0.5%);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+.infinite-loop {
+  animation: moveUpDown 1s infinite; /* Adjust the duration as needed */
+}
+@keyframes showHeader {
+  0% {
+    opacity: 0;
+    transform: translateX(-100%);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+.button-text {
+  background: none;
+  cursor: pointer;
+  color: #FFD700;
+   font-size: 10vh; 
+  font-family: 'Aliens & Cows Heavy', sans-serif;
+  border:none
+}
+
+.button-text:hover {
+  color: #FFD700;
+   font-size: 10vh; 
+}
+#imageContainer .thelogo {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    z-index: 9999;
+}
+  .slide-in {
+    animation: slideIn 1s forwards;
+  }
+
+  @keyframes slideIn {
+    0% {
+      top: -50px;
+      opacity: 0;
+    }
+    100% {
+      top: 50px;
+      opacity: 1;
+    }
+  }
+    #animation-container1 {
+  height: 100px; /* Adjust height as needed */
+  font-family: "Aliens & Cows Heavy", sans-serif;
+  font-size: 10vw;
+   color: #001133;;
+    font-weight: bold;
+}
+
+#animation-container2 {
+
+  height: 100px; /* Adjust height as needed */
+  font-family: "Aliens & Cows Heavy", sans-serif;
+  font-size: 10vw;
+   color: #001133;;
+    font-weight: bold;
+}
+#animation-container3 {
+
+  height: 100vh; /* Adjust height as needed */
+  font-family: "Aliens & Cows Heavy", sans-serif;
+  font-size: 1.5rem;
+   color: white;
+     text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.3); /* Adjust the values as needed */
+
+}
+#animation-container4 {
+  height: 100px; /* Adjust height as needed */
+  width:10vw;
+  font-family: "Aliens & Cows Heavy", sans-serif;
+  font-size: 4vw;
+  text-decoration: underline;
+   color: white;
+    font-weight: bold;
+}
+#animation-container5 {
+  height: 100px; /* Adjust height as needed */
+  font-family: "Aliens & Cows Heavy", sans-serif;
+  font-size: 5vw;
+   color: darkblue;
+    font-weight: bold;
+}
+#animation-container6 {
+  height: 100px; /* Adjust height as needed */
+  font-family: "Aliens & Cows Heavy", sans-serif;
+  font-size: 1vw;
+   color: darkblue;
+    font-weight: bold;
+}
+#animation-container7 {
+  height: 300px; /* Adjust height as needed */
+  font-family: "Aliens & Cows Heavy", sans-serif;
+  font-size: 0.8vw;
+   color: darkblue;
+    font-weight: bold;
+}
+#animation-container8 {
+
+  height: 100vh; /* Adjust height as needed */
+  font-family: "Aliens & Cows Heavy", sans-serif;
+  font-size: 5vw;
+   color: darkblue;
+    font-weight: bold;
+}
+#animation-container9 {
+
+  height: 100vh; /* Adjust height as needed */
+  font-family: "Aliens & Cows Heavy", sans-serif;
+  font-size: 5vw;
+   color: darkblue;
+    font-weight: bold;
+}
+#animation-container10 {
+
+  height: 100vh; /* Adjust height as needed */
+  font-family: "Aliens & Cows Heavy", sans-serif;
+  font-size: 1vw;
+   color: darkblue;
+    font-weight: bold;
+}
+#animation-container11 {
+
+  height: 100vh; /* Adjust height as needed */
+  font-family: "Aliens & Cows Heavy", sans-serif;
+  font-size: 20vw;
+   color: rgb(22,141,255);
+    font-weight: bold;
+}
+.line1 {
+  position: absolute;
+  top:165vh;
+  left: 10vw; /* Starting position off-screen */
+  opacity: 0;
+  transition: all 1s ease; /* Transition duration and easing */
+  transform:translate(-99%, -99%)
+  
+}
+
+.line2 {
+  position: absolute;
+  top: 190vh;
+  left: 50vw; /* Starting position off-screen */
+  opacity: 0;
+  transition: all 1s ease; /* Transition duration and easing */
+  transform:translate(-99%, -99%)
+}
+.line3 {
+  position: absolute;
+  top: 160vh;
+  left: 150vw; /* Starting position off-screen */
+  opacity: 0;
+  display:none;
+  transition: all 1s ease; /* Transition duration and easing */
+  transform:translate(-99%, -99%)
+} 
+.line4 {
+  position: absolute;
+  top: 170vh;
+  left: 10vw; /* Starting position off-screen */
+  opacity: 0;
+  display:none;
+  transition: all 1s ease; /* Transition duration and easing */
+  transform:translate(-99%, -99%)
+} 
+.line5 {
+  position: absolute;
+  top: 170vh;
+  left: 70vw; /* Starting position off-screen */
+  opacity: 0;
+  transition: all 1s ease; /* Transition duration and easing */
+  transform:translate(-99%, -99%)
+} 
+.line6 {
+  position: absolute;
+  top: 170vh;
+  left: 70vw; /* Starting position off-screen */
+  opacity: 0;
+  transition: all 1s ease; /* Transition duration and easing */
+  transform:translate(-99%, -99%)
+}
+.line7 {
+  position: absolute;
+  top: 162vh;
+  left: 52vw; /* Starting position off-screen */
+  opacity: 0;
+  transition: all 1s ease; /* Transition duration and easing */
+  transform:translate(-99%, -99%)
+} 
+.line8 {
+  position: absolute;
+  top: 170vh;
+  left: 70vw; /* Starting position off-screen */
+  opacity: 0;
+  transition: all 1s ease; /* Transition duration and easing */
+  transform:translate(-99%, -99%)
+}  
+.line9 {
+  position: absolute;
+  top: 170vh;
+  left: 70vw; /* Starting position off-screen */
+  opacity: 0;
+  transition: all 1s ease; /* Transition duration and easing */
+  transform:translate(-99%, -99%)
+} 
+.line10 {
+  position: absolute;
+  top: 150vh;
+  left: 25vw; /* Starting position off-screen */
+  opacity: 0;
+  transition: all 1s ease; /* Transition duration and easing */
+  transform:translate(-99%, -99%)
+}
+.line11 {
+  position: absolute;
+  top: 385vh;
+  left: 20vw; /* Starting position off-screen */
+  opacity: 0;
+  transition: all 3s ease; /* Transition duration and easing */
+  transform:translate(-99%, -99%)
+}    
+.floating-element {
+
+  position: absolute;
+  transform: translate(-50%, -50%);
+  animation: floating 3s infinite ease-in-out;
+}
+
+@keyframes floating {
+  0% {
+    transform: rotate(0deg);;
+  }
+  50% {
+    transform: rotate(3deg); 
+  }
+  100% {
+    transform: rotate(0deg);
+  }  
+}
+.floating-element1 {
+
+  position: absolute;
+  transform: translate(-50%, -50%);
+  animation: floating1 3s infinite ease-in-out;
+}
+
+@keyframes floating1 {
+  0% {
+    transform: rotate(0deg);
+  }
+  50% {
+    transform: rotate(2deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+}
+.floating-element2 {
+
+  position: absolute;
+  transform: translate(-50%, -50%);
+  animation: floating2 3s infinite ease-in-out;
+}
+
+@keyframes floating2 {
+  0% {
+    transform: rotate(0deg);
+  }
+  50% {
+    transform: rotate(-3deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+}
+.floating-element3 {
+
+  position: absolute;
+  transform: translate(-50%, -50%);
+  animation: floating3 3s infinite ease-in-out;
+}
+
+@keyframes floating3 {
+  0% {
+    transform: rotate(0deg);
+  }
+  50% {
+    transform: rotate(-6deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+}
+.random-element {
+
+  position: absolute;
+  transform: translate(-50%, -50%);
+  animation: 3s infinite;
+}
+
+@keyframes randomMovement {
+  0% {
+    transform: translate(-50%, -50%);
+  }
+  50% {
+    transform: translate(
+      calc(-50% + var(--translate-x)),
+      calc(-50% + var(--translate-y))
+    );
+  }
+  100% {
+    transform: translate(-50%, -50%);
+  }
+}
+.scrolling-text {
+  width: 100%;
+  overflow: hidden;
+}
+
+.scrolling-text h1 {
+  animation: scroll-left ;
+   animation-delay:0s;
+  animation-direction:normal;
+  animation-duration:3s;
+  animation-fill-mode:none;
+  animation-iteration-count:infinite;
+  animation-play-state:running;
+  animation-timing-function:linear; 
+  white-space: nowrap;
+}
+
+@keyframes scroll-left {
+
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-87%);
+  }
+}
+
+
+.scrolling-text1 {
+  width: 100%;
+  overflow: hidden;
+}
+
+.scrolling-text1 h1 {
+  animation: scroll-left1 ;
+   animation-delay:0s;
+  animation-direction:normal;
+  animation-duration:3s;
+  animation-fill-mode:none;
+  animation-iteration-count:infinite;
+  animation-play-state:running;
+  animation-timing-function:linear; 
+  white-space: nowrap;
+}
+
+@keyframes scroll-left1 {
+
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-81.5%);
+  }
+}
+.scrolling-text2 {
+  width: 100%;
+  overflow: hidden;
+}
+
+.scrolling-text2 h1 {
+  animation: scroll-left1 ;
+   animation-delay:0s;
+  animation-direction:normal;
+  animation-duration:3s;
+  animation-fill-mode:none;
+  animation-iteration-count:infinite;
+  animation-play-state:running;
+  animation-timing-function:linear; 
+  white-space: nowrap;
+}
+
+@keyframes scroll-left2 {
+
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-81.5%);
+  }
+}
+
+
+
+
+
+/* Wrapper Styles */
+.aBox-wrapper {
+
+font-size: 1.3vh;
+  max-width: 5vw;
+
+  margin: 0 auto;
+  padding: 2vh;
+    position: absolute;
+  transform: translate(-50%, -50%);
+  animation: floating 3s infinite ease-in-out;
+  width:3vw;
+}
+
+/* Row Styles */
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  margin: -1vw;
+}
+
+/* Column Styles */
+.aBoxCol {
+  flex: 0 0 33.3333333333%;
+  max-width: 33.3333333333%;
+  padding: 1hw;
+}
+
+/* aBox Styles */
+.aBox {
+ /* background: linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet);*/
+   background-color:rgb(2,8,44);
+  border-radius: 1vh;
+  padding: 2vh;
+  text-align: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.aBox:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Heading Styles */
+.aBox h3 {
+  font-size: 4vh;
+  font-weight:400;
+  margin: 0;
+  padding-bottom: 1vh;
+  color:  #C28840;
+  -webkit-font-smoothing:auto;
+  -webkit-tap-highlight-color:rgba(0,0,0,0)
+}
+.aBox_content{
+  list-style-image:none;
+  list-style-position:outside;
+  list-style-type:none;
+  margin-bottom:4.96px;
+  text-align:left;
+  border-bottom-color:blue;
+  border-bottom-style:solid;
+  border-bottom-width:9.6px;
+  border-top-color:blue;
+  border-top-style:solid;
+  border-top-width:9.6px;
+  box-sizing:border-box;
+  color:#B76E79;
+  -webkit-font-smoothing:auto;
+  -webkit-tap-highlight-color:rgba(0,0,0,0);
+    line-height: 2;
+  
+}
+/* Content Styles */
+.aBox_content ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  text-align: left;
+  color: blue;
+  display:list-item
+  font-size:12.896px
+
+  
+}
+
+.aBox_content ul li {
+  margin-bottom: 0.5vh;
+   color: #F1D0C5;
+   font-size:20.896px
+}
+
+.aBox_content p {
+  margin: 0;
+  color: #F1D0C5;
+     font-size:20.896px
+
+}
+
+/* Empty Column Styles */
+.empty {
+  flex: 0 0 33.3333333333%;
+  max-width: 33.3333333333%;
+}
+
+/* Spacer Styles */
+.heightSpacer {
+  height: 0.5vh;
+}
+.contact_form_wrapper {
+  background-color: none;
+  padding: 2vh;
+  border-radius: 1vh;
+  color:white
+}
+
+.contact_text {
+  text-align: center;
+  margin-bottom: 2vh;
+}
+
+.contact_text h4 {
+  opacity: 1;
+  transform: translate(0px, 0px);
+  font-size: 10px;
+  margin: 0;
+}
+
+.contact_form {
+  max-width: 80vw;
+  margin: 0 auto;
+  position:absolute;
+  transform:translate(-35%,250%)
+}
+
+.contact_form form {
+  display: flex;
+  flex-direction: row;
+}
+
+.contact_form label {
+  font-size: 2vh;
+  font-weight: bold;
+  margin-bottom: 1vh;
+}
+
+.contact_form input,
+.contact_form textarea {
+  padding: 2vh;
+  margin-bottom: 0.5vh;
+  border-radius: 5vh;
+  border: 1px solid #ccc;
+}
+
+.contact_form button {
+  padding: 1vh 2vh;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 0.5vh;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 1.5vw;
+}
+
+.contact_form button:hover {
+  background-color: #0056b3;
+}
+.contact_form .error-message {
+  font-size: 3vh;
+  color: red;
+  margin-top: 1vh;
+}
+    </style>
+<style>
+    .pforms-submit.btn-blue {
+	        border-radius: 4px;
+
+        background-color: blue;
+        color: white;
+        padding: 10px 20px;
+        border-radius: 4px;
+        border: none;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        cursor: pointer;
+    }
+
+    .pforms-submit.btn-blue:hover {
+        background-color: white;
+		color :blue;
+    }
+	       /* Article Styling */
+        article {
+            padding: 350px;
+            margin: 20px auto;
+			 font-size: 20px;
+			 color:gold;
+			 font-weight: bold;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+        }
+
+        /* h1 inside article */
+        h1 {
+            color: pink;
+            font-size: 20px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        /* h2 Styling */
+         h2 {
+            color: white;
+            margin-top: 5px;
+            font-size: 15px;
+        }
+
+        /* Paragraph Styling */
+         p {
+            line-height: 1;
+            margin-bottom: 15px;
+        }
+		 .faq-container {
+            margin: 30px auto;
+            padding: 150px;
+           font-size: 25px;
+            border-radius: 8px;
+        }
+
+        /* Question FAQ */
+        .faq-question {
+            font-size: 18px;
+            font-weight: bold;
+            color: #f0f8ff; /* Rose */
+            margin-bottom: 10px;
+        }
+
+        /* Réponse FAQ */
+        .faq-answer {
+            margin-bottom: 15px;
+            line-height: 1;
+            color: gold;
+        }
+
+        .faq-answer a {
+            color: gold; /* Lien en or */
+            text-decoration: none;
+        }
+
+        .faq-answer a:hover {
+            text-decoration: underline;
+        }
+
+        /* Pied de page */
+       
+</style>	
+</head>
+<body>
+    <h1 hidden id="o4" href="#09" data-menuanchor="09"   style="font-size: 3vh;display:none;color:white;margin-top:47vh;margin-left:85vw;z-index: 9999;position: fixed;left:1vw;top:1vh;text-decoration: underline;opacity: 1; transform: translate(0px, 0px);"></h1>
+    <svg id="o1" onclick=" window.location.href =window.location.href+'/#01';" style="display:none;cursor: pointer;position: absolute;left:18vw;top:1px;margin-top:47vw;margin-left:31vw;z-index: 9999;;"  xmlns="http://www.w3.org/2000/svg" width="40.8" height="32.286" viewBox="0 0 40.8 32.286">
+		<g id="Groupe_90" data-name="Groupe 90" transform="translate(-940 -1021)">
+		  <text transform="translate(941 1037)" fill="#168dff" font-size="14" font-family="Anton-Regular, Anton"><tspan x="0" y="0">SCROLL</tspan></text>
+		  <path data-name="Tracé 194" d="M2103.694,337.771l20.416,8.948,20.384-8.948" transform="translate(-1163.693 706.567)" fill="#168dff"></path>
+		</g>
+	  </svg>
+     <img id="o2" onclick=" window.location.href =window.location.href+'/#01';" style=" cursor: pointer;width:150px;height:150px;position: fixed;left:1%;down:20%;z-index: 9999;;" src="logo1.png"  alt="">
+    <div  id="scrollButtons" >
+<button class="button-text" onclick="scrollToSection(1)"><h1 id="m1" class="top-h1 menu" style="font-size: 1.5vw; line-height: 0; color:white">HOME</h1></button>
+<button class="button-text" onclick="scrollToSection(2)"><h1 id="m2" class="top-h1 menu" style="font-size: 1.5vw; line-height: 0;">Who We Are</h1></button>
+<button class="button-text" onclick="scrollToSection(3)"><h1 id="m3" class="top-h1 menu" style="font-size: 1.5vw; line-height: 0;"></h1></button>
+<button class="button-text" onclick="scrollToSection(4)"><h1 id="m4" class="top-h1 menu" style="font-size: 1.5vw; line-height: 0;">Services</h1></button>
+<button class="button-text" onclick="scrollToSection(5)"><h1 id="m5" class="top-h1 menu" style="font-size: 1.5vw; line-height: 0;">Our Networks</h1></button>
+<button class="button-text" onclick="scrollToSection(6)"><h1 id="m6" class="top-h1 menu" style="font-size: 1.5vw; line-height: 0;">FAQ</h1></button>
+<button class="button-text" onclick="scrollToSection(7)"><h1 id="m7" class="top-h1 menu" style="font-size: 1.5vw; line-height: 0;">Legal Notices</h1></button>
+
+       
+
+        <!-- ... Repeat for buttons corresponding to section4 to section8 with appropriate labels -->
+    </div>
+    
+    <section id="section1">
+	 <div class="contact_form">
+   
+ <form class="demo_form" action="mailto:youremail@example.com" method="post" enctype="text/plain">
+      <div class="form-group" >
+        <label style="font-family: &quot;Aliens &amp; Cows Heavy&quot;, sans-serif" for="name">Name <span>*</span></label><br>
+        <input type="text" id="name" name="name" placeholder="Enter your name" required>
+      </div>
+	  <span>&nbsp;&nbsp;</span>
+      <div class="form-group">
+        <label style="font-family: &quot;Aliens &amp; Cows Heavy&quot;, sans-serif" for="email">Email<span>*</span></label><br>
+        <input type="email" id="email" name="email" placeholder="Enter your email" required>
+      </div>
+	  <span>&nbsp;&nbsp;</span>
+      <div class="form-group">
+        <label style="font-family: &quot;Aliens &amp; Cows Heavy&quot;, sans-serif" for="phone">Phone Number (Optional)<span>*</span></label><br>
+        <input type="tel" id="phone" name="phone" placeholder="Enter your phone number (optional)">
+      </div>
+	  <span>&nbsp;&nbsp;</span>
+      <div class="form-group">
+        <label style="font-family: &quot;Aliens &amp; Cows Heavy&quot;, sans-serif" for="message">Message<span>*</span></label><br>
+        <textarea id="message" name="message" placeholder="Enter your message" required></textarea>
+      </div>
+      <button style="font-family: &quot;Aliens &amp; Cows Heavy&quot;, sans-serif" type="submit" class="submit-btn">Send Message</button>
+    </form>
+	</div>
+        <div id="imageContainer">
+            <img src="back.jpg" alt="Second Image">
+			
+            <img src="front.jpg" alt="First Image">
+            <h1 id="te" style="display: none;" class="top-h1">
+                <span  style="opacity: 1;font-size: 6vw;transform: translate(10%, 50px); transform: translateX(-100%);animation: showHeader 1s forwards;">Gatsby </span>
+                <span  style="opacity: 1;font-size: 6vw;transform: translate(10%, 50px) transform: translateX(-100%);animation: showHeader 2s forwards;;">&nbsp;&nbsp;Nights</span>
+                <span class="slogan" style="opacity: 1;color:blue;font-size: 2vw;transform: translate(10%, 55%); transform: translateX(-100%);animation: showHeader 3s forwards;color:blue">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Gestion de Modèles/Agent Modèles</span>
+
+            </h1>
+        </div>
+    </section>
+    
+    <section
+
+    
+    <section id="section2">
+
+	
+	
+         <div id="animation-container1">
+    <div class="line1"></div>
+    <div class="line1"></div>
+    <div class="line1"></div>
+
+  </div>
+  <div id="animation-container2">
+    <div class="line2">C</div>
+    <div class="line2">é</div>
+    <div class="line2">l</div>
+    <div class="line2">é</div>
+    <div class="line2">b</div>
+    <div class="line2">r</div>
+	<div class="line2">é</div>
+	<div class="line2"></div>
+
+
+  </div>
+  
+  
+  
+   <div id="animation-container3">
+ <img class="line3" style="height:70vh" src="https://i0.wp.com/thefanengagement.com/wp-content/uploads/2021/04/foam_finger.png?fit=1020%2C1726&amp;ssl=1" class="foam" alt="" style="opacity: 1; ">
+<img class="line3"  style="height:30vh" src="https://i0.wp.com/thefanengagement.com/wp-content/uploads/2021/04/iphone.png?fit=704%2C1207&amp;ssl=1" class="iphone" alt="" style="opacity: 1; ">
+<h2  class="line3"  style="color:white;width:35vw  ;height:30vh;  text-shadow: none;
+; ">Gatsby Night is an Instagram and Mym model agency based in France. We aim to promote our talents, diversify their action and ensure their well-being.</h2>
+
+  </div>
+   <div  id="animation-container4">
+    <div class="line4" > </div>
+	<div class="line4" > </div>
+
+  </div>
+      <div  class="line44" style="display:none;color:white;position:absolute;left:3vw;  font-family: 'Aliens & Cows Heavy', sans-serif;font-size: 4vw;text-decoration: underline;"></div>
+
+    <div id="animation-container5">
+    <div class="line5">P</div>
+    <div class="line5">u</div>
+    <div class="line5">n</div>
+    <div class="line5">g</div>
+    <div class="line5">&nbsp;</div>
+    <div class="line5">& </div>
+	<div class="line5">&nbsp;</div>
+	<div class="line5">E</div>
+	<div class="line5">n</div>
+	<div class="line5">g</div>
+	<div class="line5">a</div>
+	<div class="line5">g</div>
+	<div class="line5">i</div>
+	<div class="line5">n</div>
+	<div class="line5">g</div>
+	</div>
+<div id="animation-container6"><div class="line6"><img height="400px"src="https://i0.wp.com/thefanengagement.com/wp-content/uploads/2021/04/3carres.png?fit=1821%2C1369&amp;ssl=1" class="carres" alt="" style="opacity: 1; transform: translate(0px, 0px);"></div>
+
+  </div>
+  
+ <div id="animation-container7"><div class="line7" style="max-width:300px;color:white">LINKED WITH REAL-TIME STATS AND DATA, OUR GAMIFIED PLATFORM ALLOWS BRANDS TO ENGAGE SPORTS FANS IN FUN ACTIVITIES DURING A LIVE MATCH.
+THEY CAN TRY TO PREDICT IN-GAME ACTION AND OUTCOMES, OR CHALLENGE THEMSELVES WITH TRIVIA.</div>
+
+  </div> 
+  
+  <div id="animation-container8">
+    <div class="line8">R</div>
+    <div class="line8">E</div>
+    <div class="line8">W</div>
+    <div class="line8">A</div>
+    <div class="line8">R</div>
+    <div class="line8">D</div>
+
+
+
+  </div>
+  
+  
+  <div id="animation-container9"><div class="line9"><img style="max-width:800px" src="https://i0.wp.com/thefanengagement.com/wp-content/uploads/2021/04/casquette.png?fit=2047%2C1834&amp;ssl=1" class="casquette" alt="" style="opacity: 0.9603; transform: translate(-3.9692px, 0px);"></div></div>
+ <div id="animation-container10"  ><div class="line10"  style="max-width:300px;color:white;" >WITH EASILY REDEEMABLE REWARDS, THE FAN ENGAGEMENT OFFERS THE MOST FUN AND EFFICIENT WAY TO INTERACT WITH FANS DURING SPORTS EVENTS.</div></div>
+
+ 
+    </section>
+        
+    <section id="section3">
+	
+	
+
+<h2  style="width:600px;margin-bottom:80vh;margin-right:45vw;color:white;font-size: 3vw;;  font-family: 'Aliens & Cows Heavy', sans-serif; line-height: 1; "  > <br><span  style="line-height: 1;text-decoration: underline;;  font-family: 'Aliens & Cows Heavy', sans-serif;"></span></h2>
+	<div ><img class="floating-element" src="Alex vin chaud.jpg" style="width:19vw;top:220vh;left:50vw" alt="" style="transform:  rotate(0.4137deg); opacity: 1;">
+
+<img  class="floating-element1" src="Aliza resto italien.jpg"  style="width:17vw;top:260vh;left:30vw;"  alt="" style="transform:  rotate(3.3552deg); opacity: 1;">
+<img  class="floating-element2"  src="LPA Shooting Dordogne.jpg" style="width:15vw;top:260vh;left:50vw;" alt="" style="transform:  rotate(4.3327deg); opacity: 1;">
+
+<img  class="floating-element3"  src="Maggy Selfie.jpg" style="width:13vw;top:220vh;left:30vw;" alt="" style="transform:  rotate(-5.4183deg); opacity: 1;">
+</div>
+    </section>
+    <!-- ... Repeat for section4 to section8 -->
+ <section id="section4">
+<div id="animation-container11">
+    <div class="line11">I</div>
+    <div class="line11">T'</div>
+    <div class="line11">S</div>
+    <div class="line11"> </div>
+    <div class="line11">E </div>
+	<div class="line11">A</div>
+	<div class="line11">S</div>
+	<div class="line11">Y</div>
+
+	</div>
+	
+	
+
+<div class="aBox-wrapper">
+  <div class="row">
+    <div class="col-md-6 col-lg-6 col-xl-4 aBoxCol floating-element3">
+      <div  style="position:absolute;top:-20vh;left:-8vw;width:22vw;height:30vh"  class="aBox float">
+        <h3 style="text-transform:uppercase;  font-weight: 400;  font-family: 'Aliens & Cows Heavy', sans-serif;">Visibility and Virality</h3>
+        <div class="aBox_content " >
+          <ul >
+		    
+            <li>At Gatsby Nights we help our models improve their visibility and virality.</li>
+           
+          </ul>
+        </div>
+      </div>
+    </div>
+  
+  </div>
+  
+  <div  class="row"  >
+    <div class="col-md-6 col-lg-6 col-xl-4 empty"></div>
+    <div class="col-md-6 col-lg-6 col-xl-4 aBoxCol">
+      <div style="position:absolute;top:23vh;left:-8vw;width:22vw;height:30vh;" class="aBox float">
+        <h3 style="text-transform:uppercase; font-weight: 400; font-family: 'Aliens & Cows Heavy', sans-serif;">Opportunities </h3>
+        <div class="aBox_content">
+          <p>We also use our networks to offer new opportunities (advertising, product placement, fashion shows).</p>
+        </div>
+      </div>
+    </div>
+ 
+  </div>
+  
+  <div class="row">
+    <div class="col-md-6 col-lg-6 col-xl-4 aBoxCol">
+      <div style="position:absolute;top:23vh;left:-40vw;width:22vw;height:30vh"  class="aBox float">
+        <h3 style="text-transform:uppercase; font-weight: 400; font-family: 'Aliens & Cows Heavy', sans-serif;">Well-being</h3>
+        <div class="aBox_content">
+          <p>What sets us apart from our competitors is that we place well-being at the heart of our programs.</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6 col-lg-6 col-xl-4 aBoxCol">
+	<div  style="position:absolute;top:-20vh;left:-40vw;width:15vw;height:30vh"  class="aBox float">
+        <h3 style=" text-transform:uppercase;font-weight: 400; font-family: 'Aliens & Cows Heavy', sans-serif;">Partnerships </h3>
+        <div class="aBox_content">
+          <p>We are partnered with freelance specialists in a number of fields who are at your disposal if you need them (sports coaches, nutritionists, accountants, etc.).</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="heightSpacer"></div>
+</div>
+	
+	
+	
+</section>
+<section id="section5">
+<div class="scrolling-text">
+  <h1  style="font-size: 8vw;color:#6495ED">
+    MODEL&nbsp;MANAGEMENT&nbsp;AGENCY&nbsp;TALENT&nbsp;SCOUTING&nbsp;PORTFOLIO&nbsp;BOOKING&nbsp;AGENCIES&nbsp;PHOTO&nbsp;SHOOTS&nbsp;CASTINGS&nbsp;FASHION&nbsp;MODELS&nbsp;CLIENT&nbsp;RELATIONS&nbsp;MODELING&nbsp;CAREER&nbsp;REPRESENTATION&nbsp;EXCLUSIVITY&nbsp;CONTRACTS&nbsp;BOOKINGS&nbsp;EVENTS&nbsp;MODEL&nbsp;COORDINATION&nbsp;STYLING&nbsp;PHOTOGRAPHERS&nbsp;RUNWAY&nbsp;MODELS&nbsp;BRAND&nbsp;AMBASSADORS&nbsp;MODELING&nbsp;AGENCY&nbsp;FASHION&nbsp;INDUSTRY&nbsp;NETWORKING&nbsp;MANAGEMENT&nbsp;TALENT&nbsp;DEVELOPMENT&nbsp;PERSONAL&nbsp;BRANDING&nbsp;PORTFOLIO&nbsp;MANAGEMENT&nbsp;CASTING&nbsp;CALLS&nbsp;FASHION&nbsp;SHOWS&nbsp;MODEL&nbsp;TRAINING&nbsp;MODEL&nbsp;MANAGEMENT&nbsp;AGENCY&nbsp;TALENT&nbsp;SCOUTING&nbsp;PORTFOLIO&nbsp;BOOKING&nbsp;AGENCIES&nbsp;PHOTO&nbsp;SHOOTS&nbsp;CASTINGS&nbsp;FASHION&nbsp;MODELS&nbsp;CLIENT&nbsp;RELATIONS&nbsp;MODELING&nbsp;CAREER&nbsp;REPRESENTATION&nbsp;EXCLUSIVITY&nbsp;CONTRACTS&nbsp;BOOKINGS&nbsp;EVENTS&nbsp;MODEL&nbsp;COORDINATION&nbsp;STYLING&nbsp;PHOTOGRAPHERS&nbsp;RUNWAY&nbsp;MODELS&nbsp;BRAND&nbsp;AMBASSADORS&nbsp;MODELING&nbsp;AGENCY&nbsp;FASHION&nbsp;INDUSTRY&nbsp;NETWORKING&nbsp;MANAGEMENT&nbsp;TALENT&nbsp;DEVELOPMENT&nbsp;PERSONAL&nbsp;BRANDING&nbsp;PORTFOLIO&nbsp;MANAGEMENT&nbsp;CASTING&nbsp;CALLS&nbsp;FASHION&nbsp;SHOWS&nbsp;MODEL&nbsp;TRAINING
+  </h1>
+</div>
+<img style="position:absolute;opacity: 1;left:47vw;max-width:22vw" src="https://i0.wp.com/thefanengagement.com/wp-content/uploads/2021/04/at_home_1.png?fit=1384%2C1012&amp;ssl=1"  alt="" >
+<div >
+	<h3 style="font-size: 1.5vw;color:white;width:9vw;opacity: 1;position:absolute;opacity: 1;top:455vh;left:10vw;font-family: 'Aliens & Cows Heavy', sans-serif; ">01 At home <img src="https://thefanengagement.com/wp-content/themes/fan-engagement/assets/images/caret.svg" alt=""></h3>
+	<p style="color:white;width:20vw;opacity: 1;position:absolute;opacity: 1;top:465vh;left:10vw;">Capture your fans’ attention at the comfort of their homes. Even from the couch, they’ll feel the heat of the game.</p>
+  </div>
+</section>
+
+
+
+
+<section id="section6">
+<div class="scrolling-text1">
+     <div class="faq-container">
+	 <h2 style=" font-size: 45px;">FAQ</h2>
+     <div class="faq-item">
+    <p class="faq-question">Do I have human contact with my manager?</p>
+    <p class="faq-answer">In addition to being able to contact your manager 24/7 via Signal or WhatsApp, regular audit sessions are organized. These enable us to propose a D.A. and ideas for improving your visibility, take stock of what's working and what's not, discuss your development prospects (product placement, advertising, etc.) or simply talk about your well-being, which is at the heart of our agency.</p>
+</div>
+
+<div class="faq-item">
+    <p class="faq-question">Who owns my contents?</p>
+    <p class="faq-answer">The model retains ownership of her content. The contract authorizes us to promote your content and use it on your behalf for a given period.</p>
+</div>
+
+<div class="faq-item">
+    <p class="faq-question">How do I get paid?</p>
+    <p class="faq-answer">Payments go directly to your account and we bill you for our services at a fixed period.</p>
+</div>
+
+<div class="faq-item">
+    <p class="faq-question">How much does it cost?</p>
+    <p class="faq-answer">It costs you NOTHING, we just take a percentage of the revenue we generate for you.</p>
+</div>
+
+<div class="faq-item">
+    <p class="faq-question">How often should I produce content?</p>
+    <p class="faq-answer">Our models produce content on a weekly basis (5 to 10 hours, or 2 half-days). We also use A.I. content production with private software to reduce our models' content production time. There are also regular photo shoots.</p>
+</div>
+
+    </div>
+ </section>
+ <section id="section7">
+ <article>
+       <h2>Introduction</h2>
+<p>The following legal notices govern the use of the website and the services provided by model agencies or managers, also known as model agents. This information is important to ensure transparency and compliance with applicable laws, including the General Data Protection Regulation (GDPR) and laws relevant to the model management industry.</p>
+
+<h2>Legal Information</h2>
+<p><strong>Website Owner:</strong> Steven Bernard</p>
+<p><strong>Address:</strong> [Complete business address]</p>
+<p><strong>Email:</strong> siteweb.scalding172@passmail.net</p>
+<p><strong>Phone:</strong> [Contact phone number]</p>
+
+<h2>Liability</h2>
+<p>The agent or model management company is responsible for managing and promoting the models in the course of their professional activities. However, any misuse of the services or violation of copyright or model contracts may lead to legal action in accordance with applicable laws.</p>
+
+<h2>Personal Data Protection</h2>
+<p>The personal information collected on this site is processed in accordance with the applicable data protection laws. No personal information is collected without the explicit consent of users. The data is used only for managing model contracts and responding to contact requests.</p>
+
+<h2>Copyright and Intellectual Property</h2>
+<p>The content of the site, including images, texts, and logos, is protected by intellectual property laws. Any unauthorized reproduction or exploitation of the site’s content is prohibited without the prior consent of the model agency or agent.</p>
+
+<h2>Modification of Legal Notices</h2>
+<p>The legal notices may be modified at any time. Users are advised to regularly check this page to stay informed of any changes.</p>
+
+    </article>
+    
+
+ <section>
+ 
+ 
+ 
+    <script>
+	let currentSectionIndex = 0;
+        function scrollToSection(sectionNumber) {
+            const section = document.getElementById(`section${sectionNumber}`);
+			
+			var elements = document.getElementsByClassName("menu");
+
+// Exclude elements with a specific ID
+var excludedId = `m${sectionNumber}`;
+
+// Loop through the elements and print their details, excluding the element with the specified ID
+for (var i = 0; i < elements.length; i++) {
+  if (elements[i].id !== excludedId) {
+    elements[i].style.color="#FFD700";
+  } else{elements[i].style.color="#F8C8D5"}
+} ;
+            section.scrollIntoView({ behavior: 'smooth' });
+        }
+        
+      
+        
+    
+		window.addEventListener('load', function() {
+
+		
+		const elements = document.querySelectorAll('.random-element');
+
+function getRandomTranslation(element) {
+  const translateX = Math.floor(Math.random() * 201) - 100; // Random value between -100 and 100
+  const translateY = Math.floor(Math.random() * 201) - 100; // Random value between -100 and 100
+
+  element.style.setProperty('--translate-x', `${translateX}px`);
+  element.style.setProperty('--translate-y', `${translateY}px`);
+}
+
+elements.forEach((element) => {
+  getRandomTranslation(element);
+  element.addEventListener('animationiteration', () =>
+    getRandomTranslation(element)
+  );
+});
+
+
+		
+		 const sections = document.querySelectorAll('section'); // Get all sections
+		   const line1s = Array.from(document.getElementsByClassName('line1'));
+      const line2s = Array.from(document.getElementsByClassName('line2'));
+      const line3s = Array.from(document.getElementsByClassName('line3'));
+      const line4s = Array.from(document.getElementsByClassName('line4'));
+      const line44s = Array.from(document.getElementsByClassName('line44'));
+
+      const line5s = Array.from(document.getElementsByClassName('line5'));
+      const line6s = Array.from(document.getElementsByClassName('line6'));
+      const line7s = Array.from(document.getElementsByClassName('line7'));
+	  const line8s = Array.from(document.getElementsByClassName('line8'));
+	  const line9s = Array.from(document.getElementsByClassName('line9'));
+	  const line10s = Array.from(document.getElementsByClassName('line10'));
+	  const line11s = Array.from(document.getElementsByClassName('line11'));
+
+
+function animatelines5() {
+        line11s.forEach((line11, index11) => {
+          setTimeout(() => {
+		  switch (index11){
+		   case 0 :line11.style.opacity = '1';line11.style.left = (index11*13+5).toString()+"vw";break;
+		   case 1 :line11.style.opacity = '1';line11.style.left = (index11*13+5).toString()+"vw";break;
+		   
+			default:line11.style.opacity = '1';line11.style.left = (index11*11+10).toString()+"vw";break;}
+            
+          }, index11 * 100); // Adjust delay as needed
+        });
+        	
+       // Adjust delay as needed
+        }
+function animatelines3() {
+        line8s.forEach((line8, index8) => {
+          setTimeout(() => {
+            line8.style.left = (index8*5+25).toString()+"vw";
+			
+            line8.style.opacity = '1';
+          }, index8 * 100); // Adjust delay as needed
+        });
+        line9s.forEach((line9, index9) => {
+          setTimeout(() => {
+            line9.style.left = (index9*5+35).toString()+"vw";
+			
+            line9.style.opacity = '1';
+          }, index9 * 500); // Adjust delay as needed
+        });	
+        line10s.forEach((line10, index10) => {
+          setTimeout(() => {
+            line10.style.left = (index10*5+35).toString()+"vw";
+			
+            line10.style.opacity = '1';
+          }, index10 * 1000); // Adjust delay as needed
+        });			
+       // Adjust delay as needed
+        }
+function animatelines2() {
+        line5s.forEach((line5, index5) => {
+          setTimeout(() => {
+            line5.style.left = (index5*5+25).toString()+"vw";
+			
+            line5.style.opacity = '1';
+          }, index5 * 100); // Adjust delay as needed
+        });
+		line6s.forEach((line6, index6) => {
+          setTimeout(() => {
+            line6.style.left = (index6*5+25).toString()+"vw";
+			
+            line6.style.opacity = '1';
+          }, index6 * 500); // Adjust delay as needed
+        });
+		line7s.forEach((line7, index7) => {
+          setTimeout(() => {
+            line7.style.left = (index7*5+21).toString()+"vw";
+			
+            line7.style.opacity = '1';
+          }, index7 * 1000); // Adjust delay as needed
+        });
+       // Adjust delay as needed
+        }; 
+      function animatelines1() {
+        line1s.forEach((line1, index) => {
+          setTimeout(() => {
+		  switch(index){
+		    case 2: line1.style.left = (index*6.5+12).toString()+"vw";break
+            default:line1.style.left = (index*8+12).toString()+"vw";break
+			}
+            line1.style.opacity = '1';
+          }, index * 100); // Adjust delay as needed
+        });
+        line2s.forEach((line2, index2) => {
+          setTimeout(() => {
+		  switch(index2){
+            default: line2.style.left = (index2*6+21).toString()+"vw";break;
+			case 7:line2.style.left = (index2*6.5+21).toString()+"vw";break;
+            
+			}
+			line2.style.opacity = '1';
+          }, index2 * 100+500); // Adjust delay as needed
+        }); 
+        line3s.forEach((line3, index3) => {
+          setTimeout(() => {
+		    line3.style.display="block";
+			switch (index3){
+			case 2:line3.style.left = (index3*5+67).toString()+"vw";line3.style.top = "179vh";break;
+			
+			
+            case 1:line3.style.left = (index3*5+57).toString()+"vw";line3.style.top = "174vh";break;
+			case 0:line3.style.left = (index3*5+57).toString()+"vw";line3.style.top = "180vh";break;
+
+			}
+			line3.style.opacity = '2';
+            
+          }, index3 * 500+2000); // Adjust delay as needed
+        }); 
+		
+		        line4s.forEach((line4, index4) => {
+          setTimeout(() => {
+		    line4.style.display="block";
+			
+			line4.style.top = (114+index4*8).toString()+"vh"; 
+            
+			switch(index4){
+			case 2:line4.style.left = "80vw";
+			case 1 :line4.style.left = "23vw";
+			case 0 :line4.style.left = "23vw";
+
+			}
+			line4.style.opacity = '1';
+            
+          }, index4 * 500+2500); // Adjust delay as needed
+        }); 
+		 line44s.forEach((line44, index44) => {
+          setTimeout(() => {
+		    line44.style.display="block";
+			
+			line44.style.top = (118+index44*10).toString()+"vh"; 
+            
+			switch(index44){
+			case 2:line44.style.left = "15vw";
+			case 1 :line44.style.left = "15vw";
+			case 0 :line44.style.left = "11.5vw";
+
+			}
+			line44.style.opacity = '1';
+            
+          }, index44* 500+2500); // Adjust delay as needed
+        }); 
+		
+ }
+ function hide() {
+        line1s.forEach((line1, index) => {
+          setTimeout(() => {
+            line1.style.opacity = '0';
+          }, index ); // Adjust delay as needed
+        });
+        line2s.forEach((line2, index2) => {
+          setTimeout(() => {
+            line2.style.opacity = '0';
+          }, index2 ); // Adjust delay as needed
+        }); 
+        line3s.forEach((line3, index3) => {
+          setTimeout(() => {
+            line3.style.opacity = '0';
+          }, index3 ); // Adjust delay as needed
+        }); 
+        line4s.forEach((line4, index4) => {
+          setTimeout(() => {
+            line4.style.opacity = '0';
+          }, index4 ); // Adjust delay as needed
+        }); 
+        line5s.forEach((line5, index5) => {
+          setTimeout(() => {
+            line5.style.opacity = '0';
+          }, index5 ); // Adjust delay as needed
+        }); 
+        line6s.forEach((line6, index6) => {
+          setTimeout(() => {
+            line6.style.opacity = '0';
+          }, index6 ); // Adjust delay as needed
+        }); 
+         line7s.forEach((line7, index7) => {
+          setTimeout(() => {
+            line7.style.opacity = '0';
+          }, index7 ); // Adjust delay as needed
+        });		
+         line8s.forEach((line8, index8) => {
+          setTimeout(() => {
+            line8.style.opacity = '0';
+          }, index8 ); // Adjust delay as needed
+        });			
+		 line9s.forEach((line9, index9) => {
+          setTimeout(() => {
+            line9.style.opacity = '0';
+          }, index9 ); // Adjust delay as needed
+        });	
+		line10s.forEach((line10, index10) => {
+          setTimeout(() => {
+            line10.style.opacity = '0';
+          }, index10 ); // Adjust delay as needed
+        });	
+		line11s.forEach((line11, index11) => {
+          setTimeout(() => {
+            line11.style.opacity = '0';
+          }, index11 ); // Adjust delay as needed
+        });		
+ }
+   // Track the index of the current section
+
+  // Rest of the code...
+
+
+  window.addEventListener('keydown', function(event) {
+  
+    const key = event.key;
+
+    if (key === 'ArrowDown') {
+	try{
+      event.preventDefault(); // Disable the default action of the Down key press
+
+      // Move to the next section
+      currentSectionIndex = Math.min(currentSectionIndex + 1, sections.length - 1);
+      scrollToSection(currentSectionIndex + 1);
+	    switch (currentSectionIndex ) {
+// Start displaying words in section 2
+        case 1 :hide();animatelines1();break
+        case 3 :hide();animatelines5();break
+		
+		default:hide();
+      }
+	  
+	  } catch(err){
+	  //alert(err.message)
+}
+    }else if (key === 'ArrowUp') {
+      event.preventDefault(); // Disable the default action of the Up key press
+
+      // Move to the previous section
+      currentSectionIndex = Math.max(currentSectionIndex - 1, 0);
+      scrollToSection(currentSectionIndex + 1);
+	    switch (currentSectionIndex ) {
+// Start displaying words in section 2
+        case 1 :hide();animatelines1();break
+        case 3 :hide();animatelines5();break
+		
+		default:hide();
+      }
+	  
+	  
+	  
+	  
+    }
+  });
+  const imageContainer = document.getElementById('imageContainer');
+  const images = imageContainer.getElementsByTagName('img');
+  const ratio = 0.5; // Modify the ratio as needed
+
+  // Add an event listener for the 'transitionend' event
+  images[0].addEventListener('transitionend', function() {
+    const svgImage = document.createElement('img');
+  //  svgImage.type = 'image/svg+xml';
+    svgImage.src = 'model3.png';
+    svgImage.classList.add('infinite-loop');
+    svgImage.style.width = '40%';
+    svgImage.style.height = '100%';
+   // svgImage.style.position = 'absolute';
+   // svgImage.style.left = '10%';
+  //  svgImage.style.top = '10%';
+    svgImage.style.transform = 'translate(50%, -50%)';
+    svgImage.style.opacity = '0';
+	svgImage.style.transition = 'opacity 1s';
+	svgImage.id="o3"
+    svgImage.addEventListener('load', function() {
+	 document.documentElement.scrollTop = 0;
+
+  // For older browsers
+  document.body.scrollTop = 0
+	
+      const svgDoc = svgImage.contentDocument;
+      const svgElement = svgDoc.documentElement;
+
+      const originalWidth = parseFloat(svgElement.getAttribute('width'));
+      const originalHeight = parseFloat(svgElement.getAttribute('height'));
+
+      const newWidth = originalWidth * ratio;
+      const newHeight = originalHeight * ratio;
+
+    //  svgElement.setAttribute('width', newWidth);
+    //  svgElement.setAttribute('height', newHeight);
+    // Set initial opacity to 0
+     
+	
+     // imageContainer.innerHTML = ''; // Clear the container
+      imageContainer.appendChild(svgImage);
+	  
+    });
+
+   // imageContainer.innerHTML = ''; // Clear the container
+    imageContainer.appendChild(svgImage);
+	    svgImage.style.position = 'absolute';
+    svgImage.style.left = '60%';
+    svgImage.style.top = '1%';
+	document.getElementById('te').style.display = 'block';
+	//.style.display = 'block';
+	function showImage() {
+  
+  document.getElementById('o3').style.opacity = "1";
+  	
+}
+
+// Call the showImage function after a delay
+setTimeout(showImage, 1);
+function showImage1() {
+  
+  	
+	document.getElementById('o1').style.display = 'block';
+}
+
+// Call the showImage function after a delay
+setTimeout(showImage1, 1000);
+	document.getElementById('o4').style.display = 'block';
+
+	document.getElementById("scrollButtons").style.display = 'flex';
+	 setTimeout(function() {
+      document.getElementById("scrollButtons").classList.add('slide-in');
+    }, 1);
+	
+  });
+
+  setTimeout(function() {
+    images[0].style.transform = 'translateX(0%)';
+	images[0].style.transform = 'translateX(50%)';
+	//document.getElementById('o2').style.opacity = "1";
+    document.getElementById('te').style.display = 'block';
+  }, 100);
+  
+  setTimeout(function() {
+
+	images[0].style.transform = 'translateX(75%)';  
+	images[0].style.transform = 'translateX(99.99%)';
+    images[1].style.transform = 'translateX(100%)';
+  }, 300);
+});
+document.body.style.zoom = "100%"
+
+function handleZoomEvent(event) {
+  const currentViewportWidth = window.innerWidth;
+  document.documentElement.scrollTop = 0;
+
+  // For older browsers
+  document.body.scrollTop = 0;
+  if (currentViewportWidth !== initialViewportWidth) {
+    // Zoom event detected
+   // alert(currentViewportWidth);
+   event.preventDefault();
+
+  // document.body.style.zoom = "50%"
+    // Update the initial viewport width for future comparisons
+    initialViewportWidth = currentViewportWidth;
+  }
+}
+
+// Attach the event listener
+window.addEventListener('resize', handleZoomEvent);
+    </script>
+</body
